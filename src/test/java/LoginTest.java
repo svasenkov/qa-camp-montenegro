@@ -1,58 +1,47 @@
 import com.codeborne.selenide.Configuration;
-
 import org.junit.jupiter.api.Test;
+import pages.DashboardPage;
+import pages.LoginPage;
 
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class LoginTest extends BaseTest {
+    private final LoginPage loginPage = new LoginPage();
+    private final DashboardPage dashboardPage = new DashboardPage();
 
     @Test
     void successfulLogin() {
         open("/login.html");
-        $("#username").setValue("admin");
-        $("#password").setValue("admin123");
-        $("#submitButton").click();
-        
-        $("#dashboardContainer").shouldBe(visible);
-        $(".dashboard-header h1").shouldHave(text("Dashboard"));
+        loginPage.login("admin", "admin123");
+        dashboardPage.verifyDashboardIsVisible();
     }
 
     @Test
     void failedLoginWithWrongPassword() {
         open("/login.html");
-        $("#username").setValue("admin");
-        $("#password").setValue("wrongpassword");
-        $("#submitButton").click();
-        
-        $("#authError").shouldBe(visible)
-                .shouldHave(text("Invalid username or password"));
+        loginPage.login("admin", "wrongpassword");
+        loginPage.verifyAuthError("Invalid username or password");
     }
 
     @Test
     void loginWithEmptyCredentials() {
         open("/login.html");
-        $("#submitButton").click();
-        
-        $("#usernameError").shouldBe(visible)
-                .shouldHave(text("Username is required"));
-        $("#passwordError").shouldBe(visible)
-                .shouldHave(text("Password is required"));
+        loginPage.clickSubmit();
+        loginPage.verifyUsernameError("Username is required");
+        loginPage.verifyPasswordError("Password is required");
     }
 
     @Test
     void logoutFunctionality() {
         open("/login.html");
         // Login first
-        $("#username").setValue("admin");
-        $("#password").setValue("admin123");
-        $("#submitButton").click();
+        loginPage.login("admin", "admin123");
+        dashboardPage.verifyDashboardIsVisible();
         
         // Then logout
-        $("#logoutButton").click();
+        dashboardPage.clickLogout();
         
         // Verify we're back at login page
-        $("#loginContainer").shouldBe(visible);
-        $("h1").shouldHave(text("Welcome Back"));
+        loginPage.verifyLoginPageIsVisible();
     }
 } 
