@@ -1,23 +1,11 @@
 import com.codeborne.selenide.Configuration;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class LoginTest {
-
-    @BeforeAll
-    static void setup() {
-        Configuration.baseUrl = "file://" + System.getProperty("user.dir");
-    }
-
-    @AfterEach
-    void teardown() {
-        closeWebDriver();
-    }
+public class LoginTest extends BaseTest {
 
     @Test
     void successfulLogin() {
