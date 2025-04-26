@@ -1,4 +1,6 @@
 import com.codeborne.selenide.Configuration;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +12,11 @@ public class LoginTest {
     @BeforeAll
     static void setup() {
         Configuration.baseUrl = "file://" + System.getProperty("user.dir");
+    }
+
+    @AfterEach
+    void teardown() {
+        closeWebDriver();
     }
 
     @Test
