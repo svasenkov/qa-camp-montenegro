@@ -14,42 +14,49 @@ public class LoginPage {
     private final SelenideElement loginContainer = $("#loginContainer");
     private final SelenideElement welcomeHeader = $("h1");
 
-    public void setUsername(String username) {
+    public LoginPage setUsername(String username) {
         usernameField.setValue(username);
+        return this;
     }
 
-    public void setPassword(String password) {
+    public LoginPage setPassword(String password) {
         passwordField.setValue(password);
+        return this;
     }
 
-    public void clickSubmit() {
+    public LoginPage clickSubmit() {
         submitButton.click();
+        return this;
     }
 
-    public void login(String username, String password) {
-        setUsername(username);
-        setPassword(password);
-        clickSubmit();
+    public LoginPage login(String username, String password) {
+        return setUsername(username)
+                .setPassword(password)
+                .clickSubmit();
     }
 
-    public void verifyUsernameError(String expectedError) {
+    public LoginPage verifyUsernameError(String expectedError) {
         usernameError.shouldBe(visible)
                 .shouldHave(text(expectedError));
+        return this;
     }
 
-    public void verifyPasswordError(String expectedError) {
+    public LoginPage verifyPasswordError(String expectedError) {
         passwordError.shouldBe(visible)
                 .shouldHave(text(expectedError));
+        return this;
     }
 
-    public void verifyAuthError(String expectedError) {
+    public LoginPage verifyAuthError(String expectedError) {
         authError.shouldBe(visible)
                 .shouldHave(text(expectedError));
+        return this;
     }
 
-    public void verifyLoginPageIsVisible() {
+    public LoginPage verifyLoginPageIsVisible() {
         loginContainer.shouldBe(visible);
         welcomeHeader.shouldHave(text("Welcome Back"));
+        return this;
     }
 
     public SelenideElement getUsernameError() {

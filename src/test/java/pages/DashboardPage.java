@@ -9,9 +9,10 @@ public class DashboardPage {
     private final SelenideElement dashboardHeader = $(".dashboard-header h1");
     private final SelenideElement logoutButton = $("#logoutButton");
 
-    public void verifyDashboardIsVisible() {
+    public DashboardPage verifyDashboardIsVisible() {
         dashboardContainer.shouldBe(visible);
         dashboardHeader.shouldHave(text("Dashboard"));
+        return this;
     }
 
     public SelenideElement getDashboardContainer() {
@@ -22,7 +23,8 @@ public class DashboardPage {
         return dashboardHeader;
     }
 
-    public void clickLogout() {
+    public DashboardPage clickLogout() {
         logoutButton.click();
+        return this;
     }
 } 

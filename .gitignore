@@ -2,6 +2,63 @@
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
+.gradle-wrapper.properties
+gradle.properties
+gradle-app.setting
+!gradle/wrapper/gradle-wrapper.properties
+gradle/
+.gradletasknamecache
+gradle-app.setting
+gradle-app.properties
+gradle-app.xml
+gradle-app.iml
+gradle-app.ipr
+gradle-app.iws
+gradle-app.idea/
+gradle-app.settings/
+gradle-app.classpath
+gradle-app.project
+gradle-app.metadata/
+gradle-app.nbproject/
+gradle-app.nbbuild/
+gradle-app.nbdist/
+gradle-app.nb-gradle/
+gradle-app.vscode/
+gradle-app.code-workspace
+gradle-app.DS_Store
+gradle-app.DS_Store?
+gradle-app._*
+gradle-app.Spotlight-V100
+gradle-app.Trashes
+gradle-app.ehthumbs.db
+gradle-app.Thumbs.db
+gradle-app.log
+gradle-app.logs/
+gradle-app.log.*
+gradle-app.log/
+gradle-app.test-results/
+gradle-app.build/reports/
+gradle-app.allure-results/
+gradle-app.allure-report/
+gradle-app.target/surefire-reports/
+gradle-app.target/failsafe-reports/
+gradle-app.target/
+gradle-app.dist/
+gradle-app.out/
+gradle-app.build/
+gradle-app.bin/
+gradle-app.node_modules/
+gradle-app.jspm_packages/
+gradle-app.env
+gradle-app.env.local
+gradle-app.env.*.local
+gradle-app.tmp
+gradle-app.bak
+gradle-app.swp
+gradle-app~.nib
+gradle-app.local.properties
+gradle-app.settings/
+gradle-app.org.eclipse.core.resources.prefs
 
 # IntelliJ IDEA
 .idea/
@@ -9,12 +66,14 @@ build/
 *.iws
 *.ipr
 out/
+.idea_modules/
 
 # Eclipse
 .settings/
 .classpath
 .project
 bin/
+.metadata/
 
 # NetBeans
 /nbproject/private/
@@ -25,6 +84,7 @@ bin/
 
 # VS Code
 .vscode/
+*.code-workspace
 
 # OS generated files
 .DS_Store
@@ -38,7 +98,38 @@ Thumbs.db
 # Logs
 *.log
 logs/
+*.log.*
+log/
 
 # Test reports
 test-results/
-build/reports/ 
+build/reports/
+allure-results/
+allure-report/
+target/surefire-reports/
+target/failsafe-reports/
+
+# Build output
+target/
+dist/
+out/
+build/
+bin/
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+org.eclipse.core.resources.prefs 
