@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Login & Dashboard</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +12,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
@@ -23,15 +21,23 @@
             padding: 20px;
         }
 
-        .login-container {
+        .container {
             background: rgba(255, 255, 255, 0.95);
             padding: 2.5rem;
             border-radius: 15px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 420px;
+            max-width: 800px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .login-container {
+            display: block;
+        }
+
+        .dashboard-container {
+            display: none;
         }
 
         h1 {
@@ -128,7 +134,7 @@
         }
 
         @media (max-width: 480px) {
-            .login-container {
+            .container {
                 padding: 2rem;
             }
             
@@ -136,24 +142,239 @@
                 font-size: 1.75rem;
             }
         }
+
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .success-message {
+            color: #38a169;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Dashboard Styles */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-card p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .logout-btn {
+            background: #e53e3e;
+            width: auto;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .logout-btn:hover {
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Welcome Back</h1>
-        <form action="/login" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required placeholder="Enter your username">
+    <div class="container">
+        <!-- Login Form -->
+        <div class="login-container" id="loginContainer">
+            <h1>Welcome Back</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username">
+                    <div class="error-message" id="usernameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password">
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="submitButton">Sign In</button>
+                    <div class="error-message" id="authError"></div>
+                    <div class="success-message" id="authSuccess"></div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard-container" id="dashboardContainer">
+            <div class="dashboard-header">
+                <h1>Dashboard</h1>
+                <button class="logout-btn" id="logoutButton">Logout</button>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            <div class="dashboard-content">
+                <div class="dashboard-card">
+                    <h3>Welcome!</h3>
+                    <p>You have successfully logged in to your dashboard. This is a single-page application that demonstrates the login and dashboard functionality.</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Features</h3>
+                    <p>• Secure login system<br>• Responsive design<br>• Modern UI/UX<br>• Single-page application</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>About</h3>
+                    <p>This is a demo application showing how to implement a login system and dashboard on a single page using HTML, CSS, and JavaScript.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <button type="submit">Sign In</button>
-            </div>
-        </form>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginContainer = document.getElementById('loginContainer');
+            const dashboardContainer = document.getElementById('dashboardContainer');
+            const loginForm = document.getElementById('loginForm');
+            const submitButton = document.getElementById('submitButton');
+            const logoutButton = document.getElementById('logoutButton');
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+            const authError = document.getElementById('authError');
+            const authSuccess = document.getElementById('authSuccess');
+
+            // Mock user database
+            const users = [
+                { username: 'admin', password: 'admin123' },
+                { username: 'user', password: 'user123' }
+            ];
+
+            // Check if user is already logged in
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                showDashboard();
+            }
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Reset error messages
+                usernameError.style.display = 'none';
+                passwordError.style.display = 'none';
+                authError.style.display = 'none';
+                authSuccess.style.display = 'none';
+
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+
+                // Input validation
+                let isValid = true;
+
+                if (!username) {
+                    usernameError.textContent = 'Username is required';
+                    usernameError.style.display = 'block';
+                    isValid = false;
+                }
+
+                if (!password) {
+                    passwordError.textContent = 'Password is required';
+                    passwordError.style.display = 'block';
+                    isValid = false;
+                }
+
+                if (!isValid) return;
+
+                // Simulate API call with loading state
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+
+                try {
+                    // Simulate network delay
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+
+                    const user = users.find(u => u.username === username && u.password === password);
+
+                    if (user) {
+                        // Successful login
+                        authSuccess.textContent = 'Login successful!';
+                        authSuccess.style.display = 'block';
+                        
+                        // Store login state
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('username', username);
+                        
+                        // Show dashboard
+                        showDashboard();
+                    } else {
+                        // Failed login
+                        authError.textContent = 'Invalid username or password';
+                        authError.style.display = 'block';
+                    }
+                } catch (error) {
+                    authError.textContent = 'An error occurred. Please try again.';
+                    authError.style.display = 'block';
+                } finally {
+                    submitButton.classList.remove('loading');
+                    submitButton.disabled = false;
+                }
+            });
+
+            logoutButton.addEventListener('click', () => {
+                // Clear login state
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('username');
+                
+                // Show login form
+                loginContainer.style.display = 'block';
+                dashboardContainer.style.display = 'none';
+                
+                // Clear form
+                loginForm.reset();
+            });
+
+            function showDashboard() {
+                loginContainer.style.display = 'none';
+                dashboardContainer.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html> 
